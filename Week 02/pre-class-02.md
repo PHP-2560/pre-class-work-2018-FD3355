@@ -1,4 +1,6 @@
 # pre-class
+# Test Comment for git check 
+# For 9/18/2018
 
 
 Make sure you commit this often with meaningfull messages. 
