@@ -151,71 +151,146 @@ results in 10 exponentially distributed numbers with a rate <span class="math in
 <ol style="list-style-type: decimal">
 <li>Generate 200 random values from the standard exponential distribution and store them in a vector <code>exp.draws.1</code>. Find the mean and standard deviation of <code>exp.draws.1</code>.</li>
 </ol>
-<p>exp.draws.1 &lt;- rexp(n=200) mean(exp.draws.1) sd(exp.draws.1)</p>
-</div>
-<div id="above-confirmed-and-checked" class="section level3">
-<h3>Above confirmed and checked</h3>
+<div id="create-exp.draws.1" class="section level4">
+<h4>Create ‘exp.draws.1’</h4>
+<pre><code>exp.draws.1 &lt;- rexp(n=200) 
+mean(exp.draws.1) 
+sd(exp.draws.1)</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Repeat, but change the rate to 0.2, 5, 7.3 and 10, storing the results in vectors called <code>exp.draws.0.2</code>, <code>exp.draws.5</code>, <code>exp.draws.7.3</code> and <code>exp.draws.10</code>.</li>
 </ol>
-<p>exp.draws.0.2 &lt;- rexp(n=200, .2) exp.draws.5 &lt;- rexp(n=200, 5) exp.draws.7.3 &lt;- rexp(n=200, 7.3) exp.draws.10 &lt;- rexp(n=200, 10)</p>
 </div>
-<div id="above-confirmed-and-checked-1" class="section level3">
-<h3>ABove Confirmed and checked</h3>
+<div id="additional-expodentials" class="section level4">
+<h4>Additional expodentials</h4>
+<pre><code>exp.draws.0.2 &lt;- rexp(n=200, .2) 
+exp.draws.5 &lt;- rexp(n=200, 5) 
+exp.draws.7.3 &lt;- rexp(n=200, 7.3)
+exp.draws.10 &lt;- rexp(n=200, 10) </code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>The function <code>plot()</code> is the generic function in R for the visual display of data. <code>hist()</code> is a function that takes in and bins data as a side effect. To use this function, we must first specify what we’d like to plot.
 <ol style="list-style-type: lower-alpha">
 <li>Use the <code>hist()</code> function to produce a histogram of your standard exponential distribution.</li>
 <li>Use <code>plot()</code> with this vector to display the random values from your standard distribution in order.</li>
 <li>Now, use <code>plot()</code> with two arguments – any two of your other stored random value vectors – to create a scatterplot of the two vectors against each other.</li>
+</ol></li>
 </ol>
-<p>hist(exp.draws.1) plot(exp.draws.1) plot(exp.draws.10,exp.draws.7.3)</p></li>
+</div>
+<div id="histograms-and-plots" class="section level4">
+<h4>Histograms and Plots</h4>
+<pre><code>hist(exp.draws.1)
+plot(exp.draws.1)
+plot(exp.draws.10,exp.draws.7.3)</code></pre>
+<ol start="4" style="list-style-type: decimal">
 <li>We’d now like to compare the properties of each of our vectors. Begin by creating a vector of the means of each of our five distributions in the order we created them and saving this to a variable name of your choice. Using this and other similar vectors, create the following scatterplots and explain in words what is going on:
 <ol style="list-style-type: lower-alpha">
 <li>The five means versus the five rates used to generate the distribution.</li>
+</ol></li>
 </ol>
-<h3 id="calculate-means">Calculate means</h3>
-<p>mean1&lt;-mean(exp.draws.1) mean.2&lt;-mean(exp.draws.0.2) mean5&lt;-mean(exp.draws.5) mean7.3&lt;-mean(exp.draws.7.3) mean10&lt;-mean(exp.draws.10) ###Vector of means meanvector&lt;-c(mean1,mean.2,mean5,mean7.3,mean10) ###Vector of rates ratevector&lt;-c(1,.2,5,7.3,10) ###plot graph plot(ratevector,meanvector)</p>
+</div>
+<div id="calculate-means" class="section level4">
+<h4>Calculate means</h4>
+<pre><code>mean1&lt;-mean(exp.draws.1)
+mean.2&lt;-mean(exp.draws.0.2)
+mean5&lt;-mean(exp.draws.5)
+mean7.3&lt;-mean(exp.draws.7.3)
+mean10&lt;-mean(exp.draws.10)</code></pre>
+</div>
+<div id="vector-of-means" class="section level4">
+<h4>Vector of means</h4>
+<pre><code>meanvector&lt;-c(mean1,mean.2,mean5,mean7.3,mean10)</code></pre>
+</div>
+<div id="vector-of-rates" class="section level4">
+<h4>Vector of rates</h4>
+<pre><code>ratevector&lt;-c(1,.2,5,7.3,10)</code></pre>
+</div>
+<div id="plot-graph" class="section level4">
+<h4>plot graph</h4>
+<pre><code>plot(ratevector,meanvector)</code></pre>
+<p>Recall the formula of the expodential distribution, <span class="math inline">\(\lambda\)</span> is in the expodential. the distribution is destined to 1 as x approaches infinity. However the larger <span class="math inline">\(\lambda\)</span> is the faster this will happen, and the likelier we are to get smaller numbers with (F(x) = 1-e^{-x}), thus the decreasing means seen in this graph.</p>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>The standard deviations versus the rates.</li>
 </ol>
-<p>###Calculate Standard Deviation sd1&lt;-sd(exp.draws.1) sd.2&lt;-sd(exp.draws.0.2) sd5&lt;-sd(exp.draws.5) sd7.3&lt;-sd(exp.draws.7.3) sd10&lt;-sd(exp.draws.10) ###Vector of standard deviations sdvector&lt;-c(sd1,sd.2,sd5,sd7.3,sd10) ###Vector of rates ratevector&lt;-c(1,.2,5,7.3,10) ###plot graph plot(ratevector,sdvector)</p>
+</div>
+<div id="calculate-standard-deviations" class="section level4">
+<h4>Calculate Standard Deviations</h4>
+<pre><code>sd1&lt;-sd(exp.draws.1)
+sd.2&lt;-sd(exp.draws.0.2)
+sd5&lt;-sd(exp.draws.5)
+sd7.3&lt;-sd(exp.draws.7.3)
+sd10&lt;-sd(exp.draws.10)</code></pre>
+</div>
+<div id="vector-of-standard-deviations" class="section level4">
+<h4>Vector of standard deviations</h4>
+<pre><code>sdvector&lt;-c(sd1,sd.2,sd5,sd7.3,sd10)</code></pre>
+</div>
+<div id="vector-of-rates-1" class="section level4">
+<h4>Vector of rates</h4>
+<pre><code>ratevector&lt;-c(1,.2,5,7.3,10)</code></pre>
+</div>
+<div id="plot-graph-1" class="section level4">
+<h4>plot graph</h4>
+<pre><code>plot(ratevector,sdvector)</code></pre>
 <ol start="3" style="list-style-type: lower-alpha">
-<li>The means versus the standard deviations.</li>
-</ol>
-<p>plot(meanvector,sdvector)</p></li>
+<li>The means versus the standard deviations. ####Means vs Standard Deviations plot(meanvector,sdvector)</li>
 </ol>
 <p>For each plot, explain in words what’s going on.</p>
 </div>
-<div id="part-ii-php-2560-only" class="section level3">
-<h3>Part II (PHP 2560 Only)</h3>
+<div id="part-ii-php-2560-only" class="section level4">
+<h4>Part II (PHP 2560 Only)</h4>
 <ol start="5" style="list-style-type: decimal">
-<li>R’s capacity for data and computation is large to what was available 10 years ago.
+<li>R’s capacity for data and computation is large to what was available 10 years ago.</li>
+</ol>
 <ol style="list-style-type: lower-alpha">
 <li>To show this, generate 1.1 million numbers from the standard exponential distribution and store them in a vector called <code>big.exp.draws.1</code>. Calculate the mean and standard deviation.</li>
 </ol>
-<p>big.exp.draws.1 &lt;- rexp(n=1100000) mean(big.exp.draws.1) sd(big.exp.draws.1)</p>
+</div>
+<div id="create-big.exp.draws.1-then-find-mean-and-sd" class="section level4">
+<h4>Create ‘big.exp.draws.1’ then find mean and sd</h4>
+<pre><code>big.exp.draws.1 &lt;- rexp(n=1100000)
+mean(big.exp.draws.1)
+sd(big.exp.draws.1)</code></pre>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Plot a histogram of <code>big.exp.draws.1</code>. Does it match the function <span class="math inline">\(1-e^{-x}\)</span>? Should it?</li>
 </ol>
-<p>hist(big.exp.draws.1)</p>
+</div>
+<div id="hist-plot" class="section level4">
+<h4>Hist plot</h4>
+<pre><code>hist(big.exp.draws.1)</code></pre>
 <ol start="3" style="list-style-type: lower-alpha">
 <li>Find the mean of all of the entries in <code>big.exp.draws.1</code> which are strictly greater than 1. You may need to first create a new vector to identify which elements satisfy this.</li>
 </ol>
-<p>Less &lt;- big.exp.draws.1[big.exp.draws.1&gt;1] mean(Less)</p>
+</div>
+<div id="create-less-vector-no-values-1" class="section level4">
+<h4>Create “Less Vector” : no values &lt;1</h4>
+<pre><code>Less &lt;- big.exp.draws.1[big.exp.draws.1&gt;1]
+mean(Less)</code></pre>
 <ol start="4" style="list-style-type: lower-alpha">
 <li>Create a matrix, <code>big.exp.draws.1.mat</code>, containing the the values in <code>big.exp.draws.1</code>, with 1100 rows and 1000 columns. Use this matrix as the input to the <code>hist()</code> function and save the result to a variable of your choice. What happens to your data?</li>
 </ol>
-<p>big.exp.draws.1.mat &lt;- matrix(big.exp.draws.1, nrow=1100, ncol=1000) HistEL &lt;- hist(big.exp.draws.1.mat) ###Short for Hist Exp Large HistEL</p>
+</div>
+<div id="matrix-manipulations-continued" class="section level4">
+<h4>Matrix manipulations continued</h4>
+<pre><code>big.exp.draws.1.mat &lt;- matrix(big.exp.draws.1, nrow=1100, ncol=1000)
+HistEL &lt;- hist(big.exp.draws.1.mat) ###Short for Hist Exp Large
+HistEL</code></pre>
 <ol start="5" style="list-style-type: lower-alpha">
 <li>Calculate the mean of the 371st column of <code>big.exp.draws.1.mat</code>.</li>
 </ol>
-<p>mean(big.exp.draws.1.mat[,371])</p>
+</div>
+<div id="mean-for-big.exp.draws.1" class="section level4">
+<h4>Mean for <code>big.exp.draws.1</code></h4>
+<pre><code>mean(big.exp.draws.1.mat[,371])</code></pre>
 <ol start="6" style="list-style-type: lower-alpha">
-<li>Now, find the means of all 1000 columns of <code>big.exp.draws.1.mat</code> simultaneously. Plot the histogram of column means. Explain why its shape does not match the histogram in problem 5b). ExpColMeans &lt;- c() for (i in 1:1000) { ExpColMeans[i] &lt;- mean(big.exp.draws.1.mat[,i])}</li>
+<li>Now, find the means of all 1000 columns of <code>big.exp.draws.1.mat</code> simultaneously. Plot the histogram of column means. Explain why its shape does not match the histogram in problem 5b).</li>
 </ol>
-<p>hist(ExpColMeans)</p></li>
-</ol>
+</div>
+<div id="create-vector-of-column-means" class="section level4">
+<h4>Create Vector of Column means</h4>
+<pre><code>ExpColMeans &lt;- c()
+for (i in 1:1000) {
+  ExpColMeans[i] &lt;- mean(big.exp.draws.1.mat[,i])}
+  hist(ExpColMeans)</code></pre>
+</div>
 </div>
 </div>
 
