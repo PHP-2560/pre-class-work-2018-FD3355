@@ -128,7 +128,7 @@ $(document).ready(function () {
 <h1>pre-class</h1>
 <div id="for-9192018" class="section level4">
 <h4>For 9/19/2018</h4>
-<p>Make sure you commit this often with meaningfull messages.</p>
+<p>Make sure you commit this often with meaningful messages.</p>
 </div>
 <div id="background" class="section level3">
 <h3>Background</h3>
@@ -168,7 +168,7 @@ exp.draws.10 &lt;- rexp(n=200, 10) </code></pre>
 <ol style="list-style-type: lower-alpha">
 <li>Use the <code>hist()</code> function to produce a histogram of your standard exponential distribution.</li>
 <li>Use <code>plot()</code> with this vector to display the random values from your standard distribution in order.</li>
-<li>Now, use <code>plot()</code> with two arguments – any two of your other stored random value vectors – to create a scatterplot of the two vectors against each other.</li>
+<li>Now, use <code>plot()</code> with two arguments – any two of your other stored random value vectors – to create a scatter-plot of the two vectors against each other.</li>
 </ol></li>
 </ol>
 </div>
@@ -178,7 +178,7 @@ exp.draws.10 &lt;- rexp(n=200, 10) </code></pre>
 plot(exp.draws.1)
 plot(exp.draws.10,exp.draws.7.3)</code></pre>
 <ol start="4" style="list-style-type: decimal">
-<li>We’d now like to compare the properties of each of our vectors. Begin by creating a vector of the means of each of our five distributions in the order we created them and saving this to a variable name of your choice. Using this and other similar vectors, create the following scatterplots and explain in words what is going on:
+<li>We’d now like to compare the properties of each of our vectors. Begin by creating a vector of the means of each of our five distributions in the order we created them and saving this to a variable name of your choice. Using this and other similar vectors, create the following scatter-plots and explain in words what is going on:
 <ol style="list-style-type: lower-alpha">
 <li>The five means versus the five rates used to generate the distribution.</li>
 </ol></li>
@@ -203,7 +203,7 @@ mean10&lt;-mean(exp.draws.10)</code></pre>
 <div id="plot-graph" class="section level4">
 <h4>plot graph</h4>
 <pre><code>plot(ratevector,meanvector)</code></pre>
-<p>Recall the formula of the expodential distribution, <span class="math inline">\(\lambda\)</span> is in the expodential. the distribution is destined to 1 as x approaches infinity. However the larger <span class="math inline">\(\lambda\)</span> is the faster this will happen, and the likelier we are to get smaller numbers with (F(x) = 1-e^{-x}), thus the decreasing means seen in this graph. (From almost 5 for .2 decreasing to below 1 and approaching 0)</p>
+<p>Recall the formula of the exponential distribution, <span class="math inline">\(\lambda\)</span> is in the exponential. the distribution is destined to 1 as x approaches infinity. However the larger <span class="math inline">\(\lambda\)</span> is the faster this will happen, and the likelier we are to get smaller numbers with (F(x) = 1-e^{-x}), thus the decreasing means seen in this graph. (From almost 5 for .2 decreasing to below 1 and approaching 0). Also note that the mean for this distribution is 1/<span class="math inline">\(\lambda\)</span> which the graph tends to.</p>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>The standard deviations versus the rates.</li>
 </ol>
@@ -227,11 +227,15 @@ sd10&lt;-sd(exp.draws.10)</code></pre>
 <div id="plot-graph-1" class="section level4">
 <h4>plot graph</h4>
 <pre><code>plot(ratevector,sdvector)</code></pre>
-<p>Following the same logic as a the numbers tend to be smaller at an expodential rate, so the aren’t as far apart from eachother. This leads to a similar relationshipas seen in a.</p>
+<p>Following the same logic as a the numbers tend to be smaller at an exponential rate, so the aren’t as far apart from each other. This leads to a similar relationship seen in a.</p>
 <ol start="3" style="list-style-type: lower-alpha">
-<li>The means versus the standard deviations. ####Means vs Standard Deviations plot(meanvector,sdvector)</li>
+<li>The means versus the standard deviations.</li>
 </ol>
-<p>The means and standard deviations are almost the same for each <span class="math inline">\(\lambda\)</span>, so we see a essentially linear relationshiop reflecting this.</p>
+</div>
+<div id="means-vs-standard-deviations" class="section level4">
+<h4>Means vs Standard Deviations</h4>
+<pre><code>plot(meanvector,sdvector)</code></pre>
+<p>The means and standard deviations are almost the same for each <span class="math inline">\(\lambda\)</span>, so we see a essentially linear relationship reflecting this.</p>
 <p>For each plot, explain in words what’s going on.</p>
 </div>
 <div id="part-ii-php-2560-only" class="section level4">
@@ -272,7 +276,7 @@ mean(Less)</code></pre>
 <h4>Matrix manipulations continued</h4>
 <pre><code>big.exp.draws.1.mat &lt;- matrix(big.exp.draws.1, nrow=1100, ncol=1000)
 HistEL &lt;- hist(big.exp.draws.1.mat) ###Short for Hist Exp Large</code></pre>
-<p>I believe all this does is create a matrix of all your data, organizing it in such a way that we can create means for later problems. However you can observe the variable HistEL in the global enviornment, providing more detailed info then just the graph itself. *Unsure of this, ask in class</p>
+<p>I believe all this does is create a matrix of all your data, organizing it in such a way that we can create means for later problems. However you can observe the variable HistEL in the global environment, providing more detailed info then just the graph itself. *Unsure of this, ask in class</p>
 <ol start="5" style="list-style-type: lower-alpha">
 <li>Calculate the mean of the 371st column of <code>big.exp.draws.1.mat</code>.</li>
 </ol>
@@ -290,7 +294,7 @@ HistEL &lt;- hist(big.exp.draws.1.mat) ###Short for Hist Exp Large</code></pre>
 for (i in 1:1000) {
   ExpColMeans[i] &lt;- mean(big.exp.draws.1.mat[,i])}
   hist(ExpColMeans)</code></pre>
-<p>So in creating 1000 columns of expodential random values we have sort of created 1000 expodental distributions. Due to the sheer about of data we would expect the mean of all of this data to match the mean of the expodental distribution, which for the standadr expodential distribution should be one. So this graph is showing us wlmost exactly that. This is opposed to the previous histogram showing the frequency of these random variables, in taking the means we have made the data more readable in terms of what values to expect. The data is not changing though, taking the mean of ‘big.exp.draws.1’ should be close to one as well. (When I do this in the console I get .9996654)</p>
+<p>So in creating 1000 columns of exponential random values we have sort of created 1000 exponential distributions. Due to the sheer about of data we would expect the mean of all of this data to match the mean of the exponential distribution, which for the standard exponential distribution should be one. So this graph is showing us almost exactly that. This is opposed to the previous histogram showing the frequency of these random variables, in taking the means we have made the data more readable in terms of what values to expect. The data is not changing though, taking the mean of <code>big.exp.draws.1</code> should be close to one as well. (When I do this in the console I get .9996654)</p>
 </div>
 </div>
 </div>

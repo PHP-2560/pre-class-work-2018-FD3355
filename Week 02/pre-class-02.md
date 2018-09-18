@@ -2,7 +2,7 @@
 #### For 9/19/2018
 
 
-Make sure you commit this often with meaningfull messages. 
+Make sure you commit this often with meaningful messages. 
 
 ### Background
 
@@ -39,14 +39,14 @@ then this results in 10 exponentially distributed numbers with a rate \(\lambda=
 3. The function `plot()` is the generic function in R for the visual display of data. `hist()` is a function that takes in and bins data as a side effect. To use this function, we must first specify what we'd like to plot.
     a. Use the `hist()` function to produce a histogram of your standard exponential distribution. 
     b. Use `plot()` with this vector to display the random values from your standard distribution in order.
-    c. Now, use `plot()` with two arguments -- any two of your other stored random value vectors -- to create a scatterplot of the two vectors against each other.
+    c. Now, use `plot()` with two arguments -- any two of your other stored random value vectors -- to create a scatter-plot of the two vectors against each other.
     
 ####Histograms and Plots
     hist(exp.draws.1)
     plot(exp.draws.1)
     plot(exp.draws.10,exp.draws.7.3)
 
-4. We'd now like to compare the properties of each of our vectors. Begin by creating a vector of the means of each of our five distributions in the order we created them and saving this to a variable name of your choice. Using this and other similar vectors, create the following scatterplots and explain in words what is going on:
+4. We'd now like to compare the properties of each of our vectors. Begin by creating a vector of the means of each of our five distributions in the order we created them and saving this to a variable name of your choice. Using this and other similar vectors, create the following scatter-plots and explain in words what is going on:
     a. The five means versus the five rates used to generate the distribution.
     
 ####Calculate means
@@ -66,7 +66,7 @@ then this results in 10 exponentially distributed numbers with a rate \(\lambda=
 ####plot graph 
     plot(ratevector,meanvector)
     
-Recall the formula of the expodential distribution, \(\lambda\) is in the expodential.  the distribution is destined to 1 as x approaches infinity.  However the larger \(\lambda\) is the faster this will happen, and the likelier we are to get smaller numbers with (F(x) = 1-e^{-\lambda x}\), thus the decreasing means seen in this graph. (From almost 5 for .2 decreasing to below 1 and approaching 0)
+Recall the formula of the exponential distribution, \(\lambda\) is in the exponential.  the distribution is destined to 1 as x approaches infinity.  However the larger \(\lambda\) is the faster this will happen, and the likelier we are to get smaller numbers with (F(x) = 1-e^{-\lambda x}\), thus the decreasing means seen in this graph. (From almost 5 for .2 decreasing to below 1 and approaching 0).  Also note that the mean for this distribution is 1/\(\lambda\) which the graph tends to.
 
 
    b. The standard deviations versus the rates.
@@ -84,13 +84,14 @@ Recall the formula of the expodential distribution, \(\lambda\) is in the expode
 ####plot graph
     plot(ratevector,sdvector)
     
-Following the same logic as a the numbers tend to be smaller at an expodential rate, so the aren't as far apart from eachother.  This leads to a similar relationshipas seen in a.  
+Following the same logic as a the numbers tend to be smaller at an exponential rate, so the aren't as far apart from each other.  This leads to a similar relationship seen in a.  
     
   c. The means versus the standard deviations.
+  
 ####Means vs Standard Deviations
     plot(meanvector,sdvector)
     
-The means and standard deviations are almost the same for each \(\lambda\), so we see a essentially linear relationshiop reflecting this.
+The means and standard deviations are almost the same for each \(\lambda\), so we see a essentially linear relationship reflecting this.
 
 For each plot, explain in words what's going on.
 
@@ -128,7 +129,7 @@ This actually more closely follows the PDF, not the CDF of the expodentialfuncti
     big.exp.draws.1.mat <- matrix(big.exp.draws.1, nrow=1100, ncol=1000)
     HistEL <- hist(big.exp.draws.1.mat) ###Short for Hist Exp Large
 
-I believe all this does is create a matrix of all your data, organizing it in such a way that we can create means for later problems.  However you can observe the variable HistEL in the global enviornment, providing more detailed info then just the graph itself. *Unsure of this, ask in class
+I believe all this does is create a matrix of all your data, organizing it in such a way that we can create means for later problems.  However you can observe the variable HistEL in the global environment, providing more detailed info then just the graph itself. *Unsure of this, ask in class
 
 
   e. Calculate the mean of the 371st column of `big.exp.draws.1.mat`.
@@ -146,4 +147,4 @@ I believe all this does is create a matrix of all your data, organizing it in su
       ExpColMeans[i] <- mean(big.exp.draws.1.mat[,i])}
       hist(ExpColMeans)
    
-So in creating 1000 columns of expodential random values we have sort of created 1000 expodental distributions.  Due to the sheer about of data we would expect the mean of all of this data to match the mean of the expodental distribution, which for the standadr expodential distribution should be one.  So this graph is showing us wlmost exactly that. This is opposed to the previous histogram showing the frequency of these random variables, in taking the means we have made the data more readable in terms of what values to expect.  The data is not changing though, taking the mean of `big.exp.draws.1` should be close to one as well. (When I do this in the console I get .9996654)
+So in creating 1000 columns of exponential random values we have sort of created 1000 exponential distributions.  Due to the sheer about of data we would expect the mean of all of this data to match the mean of the exponential distribution, which for the standard exponential distribution should be one.  So this graph is showing us almost exactly that. This is opposed to the previous histogram showing the frequency of these random variables, in taking the means we have made the data more readable in terms of what values to expect.  The data is not changing though, taking the mean of `big.exp.draws.1` should be close to one as well. (When I do this in the console I get .9996654)
