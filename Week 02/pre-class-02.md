@@ -3,6 +3,7 @@
 
 
 Make sure you commit this often with meaningful messages. 
+*When I run this in the preview in R it's formatted but it's not on Git for some reason, ask why in class
 
 ### Background
 
