@@ -1,6 +1,5 @@
 # pre-class
-### Test Comment for git check 
-### For 9/18/2018
+#### For 9/19/2018
 
 
 Make sure you commit this often with meaningfull messages. 
@@ -112,7 +111,8 @@ For each plot, explain in words what's going on.
 ####Hist plot  
     hist(big.exp.draws.1)
     
-    
+This actually more closely follows the PDF, not the CDF of the expodentialfunction.  This makes a lot of sense, in the end the histogram is just the number of times a number shows up in our random variable generator.  It would stand to reason that the PDF should be a good predictor of how this would look, as it should be giving us the probability of these values appearing.
+
   c. Find the mean of all of the entries in `big.exp.draws.1` which are strictly greater than 1. You may need to first create a new vector to identify which elements satisfy this.
   
 ####Create "Less Vector" : no values <1  
@@ -127,7 +127,8 @@ For each plot, explain in words what's going on.
 ####Matrix manipulations continued    
     big.exp.draws.1.mat <- matrix(big.exp.draws.1, nrow=1100, ncol=1000)
     HistEL <- hist(big.exp.draws.1.mat) ###Short for Hist Exp Large
-    HistEL
+
+I believe all this does is create a matrix of all your data, organizing it in such a way that we can create means for later problems.  However you can observe the variable HistEL in the global enviornment, providing more detailed info then just the graph itself. *Unsure of this, ask in class
 
 
   e. Calculate the mean of the 371st column of `big.exp.draws.1.mat`.
@@ -145,3 +146,4 @@ For each plot, explain in words what's going on.
       ExpColMeans[i] <- mean(big.exp.draws.1.mat[,i])}
       hist(ExpColMeans)
    
+So in creating 1000 columns of expodential random values we have sort of created 1000 expodental distributions.  Due to the sheer about of data we would expect the mean of all of this data to match the mean of the expodental distribution, which for the standadr expodential distribution should be one.  So this graph is showing us wlmost exactly that. This is opposed to the previous histogram showing the frequency of these random variables, in taking the means we have made the data more readable in terms of what values to expect.  The data is not changing though, taking the mean of `big.exp.draws.1` should be close to one as well. (When I do this in the console I get .9996654)
