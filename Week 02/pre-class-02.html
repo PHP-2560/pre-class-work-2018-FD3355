@@ -202,12 +202,19 @@ results in 10 exponentially distributed numbers with a rate <span class="math in
 <ol start="3" style="list-style-type: lower-alpha">
 <li>Find the mean of all of the entries in <code>big.exp.draws.1</code> which are strictly greater than 1. You may need to first create a new vector to identify which elements satisfy this.</li>
 </ol>
-<p>Less &lt;- big.exp.draws.1[big.exp.draws.1&gt;1]</p>
+<p>Less &lt;- big.exp.draws.1[big.exp.draws.1&gt;1] mean(Less)</p>
 <ol start="4" style="list-style-type: lower-alpha">
 <li>Create a matrix, <code>big.exp.draws.1.mat</code>, containing the the values in <code>big.exp.draws.1</code>, with 1100 rows and 1000 columns. Use this matrix as the input to the <code>hist()</code> function and save the result to a variable of your choice. What happens to your data?</li>
+</ol>
+<p>big.exp.draws.1.mat &lt;- matrix(big.exp.draws.1, nrow=1100, ncol=1000) HistEL &lt;- hist(big.exp.draws.1.mat) ###Short for Hist Exp Large HistEL</p>
+<ol start="5" style="list-style-type: lower-alpha">
 <li>Calculate the mean of the 371st column of <code>big.exp.draws.1.mat</code>.</li>
-<li>Now, find the means of all 1000 columns of <code>big.exp.draws.1.mat</code> simultaneously. Plot the histogram of column means. Explain why its shape does not match the histogram in problem 5b).</li>
-</ol></li>
+</ol>
+<p>mean(big.exp.draws.1.mat[,371])</p>
+<ol start="6" style="list-style-type: lower-alpha">
+<li>Now, find the means of all 1000 columns of <code>big.exp.draws.1.mat</code> simultaneously. Plot the histogram of column means. Explain why its shape does not match the histogram in problem 5b). ExpColMeans &lt;- c() for (i in 1:1000) { ExpColMeans[i] &lt;- mean(big.exp.draws.1.mat[,i])}</li>
+</ol>
+<p>hist(ExpColMeans)</p></li>
 </ol>
 </div>
 </div>

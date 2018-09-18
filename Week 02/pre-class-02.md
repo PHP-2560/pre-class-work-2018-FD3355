@@ -22,7 +22,7 @@ then this results in 10 exponentially distributed numbers with a rate \(\lambda=
 
 1. Generate 200 random values from the standard exponential distribution and store them in a vector `exp.draws.1`.  Find the mean and standard deviation of `exp.draws.1`.
 
-exp.draws.1 <- rexp(n=200)
+exp.draws.1 <- rexp(n=200) 
 mean(exp.draws.1) 
 sd(exp.draws.1)
 
@@ -114,9 +114,9 @@ For each plot, explain in words what's going on.
    
     
     f. Now, find the means of all 1000 columns of `big.exp.draws.1.mat` simultaneously. Plot the histogram of column means.  Explain why its shape does not match the histogram in problem 5b).
-    x <- c()
+    ExpColMeans <- c()
     for (i in 1:1000) {
-      x[i] <- mean(big.exp.draws.1.mat[,i])}
+      ExpColMeans[i] <- mean(big.exp.draws.1.mat[,i])}
       
-      hist(x)
+      hist(ExpColMeans)
    
