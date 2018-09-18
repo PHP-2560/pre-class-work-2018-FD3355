@@ -104,13 +104,19 @@ For each plot, explain in words what's going on.
     d. Create a matrix, `big.exp.draws.1.mat`, containing the the values in 
 `big.exp.draws.1`, with 1100 rows and 1000 columns. Use this matrix as the input to the `hist()` function and save the result to a variable of your choice. What happens to your data?
     
-    ExpLargeMatrix <- matrix(big.exp.draws.1, nrow=1100, ncol=1000)
-    HistEL <- hist(ExpLargeMatrix) ###Short for Hist Exp Large
+    big.exp.draws.1.mat <- matrix(big.exp.draws.1, nrow=1100, ncol=1000)
+    HistEL <- hist(big.exp.draws.1.mat) ###Short for Hist Exp Large
     HistEL
 
     e. Calculate the mean of the 371st column of `big.exp.draws.1.mat`.
     
+    mean(big.exp.draws.1.mat[,371])
    
     
     f. Now, find the means of all 1000 columns of `big.exp.draws.1.mat` simultaneously. Plot the histogram of column means.  Explain why its shape does not match the histogram in problem 5b).
+    x <- c()
+    for (i in 1:1000) {
+      x[i] <- mean(big.exp.draws.1.mat[,i])}
+      
+      hist(x)
    
