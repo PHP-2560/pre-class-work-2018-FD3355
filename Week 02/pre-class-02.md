@@ -25,18 +25,59 @@ then this results in 10 exponentially distributed numbers with a rate \(\lambda=
 exp.draws.1 <- rexp(n=200)
 mean(exp.draws.1) 
 sd(exp.draws.1)
-### Above confirmed and checked (9/18 12:38 AM)
+
+### Above confirmed and checked 
 2. Repeat, but change the rate to 0.2, 5, 7.3 and 10, storing the results in vectors called  `exp.draws.0.2`,  `exp.draws.5`,  `exp.draws.7.3` and  `exp.draws.10`. 
 
+exp.draws.0.2 <- rexp(n=200, .2)
+exp.draws.5 <- rexp(n=200, 5)
+exp.draws.7.3 <- rexp(n=200, 7.3)
+exp.draws.10 <- rexp(n=200, 10)
+
+### ABove Confirmed and checked
 3. The function `plot()` is the generic function in R for the visual display of data. `hist()` is a function that takes in and bins data as a side effect. To use this function, we must first specify what we'd like to plot.
     a. Use the `hist()` function to produce a histogram of your standard exponential distribution. 
     b. Use `plot()` with this vector to display the random values from your standard distribution in order.
     c. Now, use `plot()` with two arguments -- any two of your other stored random value vectors -- to create a scatterplot of the two vectors against each other.
+    
+    hist(exp.draws.1)
+    plot(exp.draws.1)
+    plot(exp.draws.10,exp.draws.7.3)
 
 4. We'd now like to compare the properties of each of our vectors. Begin by creating a vector of the means of each of our five distributions in the order we created them and saving this to a variable name of your choice. Using this and other similar vectors, create the following scatterplots and explain in words what is going on:
     a. The five means versus the five rates used to generate the distribution.
+    
+    ###Calculate means
+    mean1<-mean(exp.draws.1)
+    mean.2<-mean(exp.draws.0.2)
+    mean5<-mean(exp.draws.5)
+    mean7.3<-mean(exp.draws.7.3)
+    mean10<-mean(exp.draws.10)
+    ###Vector of means
+    meanvector<-c(mean1,mean.2,mean5,mean7.3,mean10)
+    ###Vector of rates
+    ratevector<-c(1,.2,5,7.3,10)
+    ###plot graph
+    plot(ratevector,meanvector)
+    
     b. The standard deviations versus the rates.
+    
+     ###Calculate Standard Deviation
+    sd1<-sd(exp.draws.1)
+    sd.2<-sd(exp.draws.0.2)
+    sd5<-sd(exp.draws.5)
+    sd7.3<-sd(exp.draws.7.3)
+    sd10<-sd(exp.draws.10)
+    ###Vector of standard deviations
+    sdvector<-c(sd1,sd.2,sd5,sd7.3,sd10)
+    ###Vector of rates
+    ratevector<-c(1,.2,5,7.3,10)
+    ###plot graph
+    plot(ratevector,sdvector)
+    
     c. The means versus the standard deviations.
+    
+    plot(meanvector,sdvector)
 
 For each plot, explain in words what's going on.
 
@@ -45,6 +86,8 @@ For each plot, explain in words what's going on.
 
 5. R's capacity for data and computation is large to what was available 10 years ago. 
     a. To show this, generate 1.1 million numbers from the standard exponential distribution and store them in a vector called `big.exp.draws.1`. Calculate the mean and standard deviation.
+    
+    
     b. Plot a histogram of `big.exp.draws.1`.  Does it match the function \(1-e^{-x}\)?  Should it? 
     c. Find the mean of all of the entries in `big.exp.draws.1` which are strictly greater than 1. You may need to first create a new vector to identify which elements satisfy this.
     d. Create a matrix, `big.exp.draws.1.mat`, containing the the values in 
