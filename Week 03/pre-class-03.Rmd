@@ -29,19 +29,25 @@ Use **dplyr** functions to address the following questions:
 
 1. How many unique countries are represented per continent?
 ```{R}
-gapminder %>%
+n <- gapminder %>%
 distinct(country) %>% #Remove duplicates
 count() # Get the number of rows
 ```
 2. Which European nation had the lowest GDP per capita in 1997? 
 
 ```{R}
-gapminder %>%
-distinct(country) %>% #Remove duplicates
-count() # Get the number of rows
-```
+gap_arranged <- gapminder %>%
+filter(continent == "Europe") %>% #Select European countries only
+arrange(gdpPercap) # From smallest to largest sort by gdpPercap
 
+gap_arranged[1,1] #Pull the name of the country on top of the data set, becasue of our arrange this is the country with the lowest GDP
+```
 3. According to the data available, what was the average life expectancy across each continent in the 1980s?
+```{R}
+gapminder %>%
+group_by(continent) %>%
+summarize(mean(lifeExp))
+```
 4. What 5 countries have the highest total GDP over all years combined?
 5. What countries and years had life expectancies of _at least_ 80 years? _N.b. only output the columns of interest: country, life expectancy and year (in that order)._
 6. What 10 countries have the strongest correlation (in either direction) between life expectancy and per capita GDP?
