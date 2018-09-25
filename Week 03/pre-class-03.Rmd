@@ -74,6 +74,19 @@ arrange(corr)  %>%
 top_n(10)
 ```
 7. Which combinations of continent (besides Asia) and year have the highest average population across all countries? _N.b. your output should include all results sorted by highest average population_. With what you already know, this one may stump you. See [this Q&A](http://stackoverflow.com/q/27207963/654296) for how to `ungroup` before `arrange`ing. This also [behaves differently in more recent versions of dplyr](https://github.com/hadley/dplyr/releases/tag/v0.5.0).
+
+```{R}
+gapminder %>%
+group_by(continent, year) %>%
+filter(continent != "Asia") %>%
+summarize(AvgPOP=mean(pop)) %>%
+ungroup() %>%
+select(continent,year,AvgPOP) %>%
+arrange(desc(AvgPOP))
+
+
+```
+
 8. Which three countries have had the most consistent population estimates (i.e. lowest standard deviation) across the years of available data? 
 9. Subset **gm** to only include observations from 1992 and store the results as **gm1992**. What kind of object is this?
 10. Which observations indicate that the population of a country has *decreased* from the previous year **and** the life expectancy has *increased* from the previous year? See [the vignette on window functions](https://cran.r-project.org/web/packages/dplyr/vignettes/window-functions.html).
