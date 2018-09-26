@@ -45,44 +45,46 @@ gap_arranged[1,1] #Pull the name of the country on top of the data set, becasue 
 3. According to the data available, what was the average life expectancy across each continent in the 1980s?
 ```{R}
 gapminder %>%
-group_by(continent) %>%
-summarize(mean(lifeExp))
+group_by(continent) %>% #Groupby allows us to apply our dypler commands by continent
+summarize(mean(lifeExp)) #View the mean of the life expectancy for each continent
 ```
 4. What 5 countries have the highest total GDP over all years combined?
 ```{R}
 gapminder %>%
 group_by(country) %>%
-summarize(GDPMAX=sum(gdpPercap)) %>%
-arrange(desc(GDPMAX))  %>%
-top_n(5)
+summarize(GDPMAX=sum(gdpPercap)) %>% #View the sum of the GDP for each country
+arrange(desc(GDPMAX))  %>% #Arrange by the sum of the GDP for each country, largest to smallest
+top_n(5) #View just the top 5!
 ```
 5. What countries and years had life expectancies of _at least_ 80 years? _N.b. only output the columns of interest: country, life expectancy and year (in that order)._
 ```{R}
-GreatherThen80 = gapminder %>%
-select(country,lifeExp,year) %>%
-filter(lifeExp>80) %>%
-arrange(desc(lifeExp))
+GreatherThen80 = gapminder %>% #This again but setting it equal to a variable for output at end
+select(country,lifeExp,year) %>% #Nothing but these 3 variables will survive this select
+filter(lifeExp>=80) %>% #Continue to filter but remove life expectancies under 80 years
+arrange(desc(lifeExp)) #Arrange by life expectanancies, largest to smallest 
 
-print(GreatherThen80, n = 21)
+print(GreatherThen80, n = 100) #print the result, "n=100" is so the knit will show you all 22 values
 ```
 6. What 10 countries have the strongest correlation (in either direction) between life expectancy and per capita GDP?
 ```{R}
 gapminder %>%
-group_by(country) %>%
-summarize(corr=abs(cor(gdpPercap,lifeExp)))  %>%
-arrange(corr)  %>%
-top_n(10)
+group_by(country) %>% 
+#Same as usual to here
+summarize(corr=abs(cor(gdpPercap,lifeExp)))  %>% #Use "Cor()" to find our correlation
+arrange(desc(corr))  %>% #Arrange by correlation from largest to smallest
+top_n(10) #View the top 10 of our arrange
 ```
 7. Which combinations of continent (besides Asia) and year have the highest average population across all countries? _N.b. your output should include all results sorted by highest average population_. With what you already know, this one may stump you. See [this Q&A](http://stackoverflow.com/q/27207963/654296) for how to `ungroup` before `arrange`ing. This also [behaves differently in more recent versions of dplyr](https://github.com/hadley/dplyr/releases/tag/v0.5.0).
 
 ```{R}
 gapminder %>%
 group_by(continent, year) %>%
-filter(continent != "Asia") %>%
-summarize(AvgPOP=mean(pop)) %>%
-ungroup() %>%
-select(continent,year,AvgPOP) %>%
-arrange(desc(AvgPOP))
+#Same as usual to here
+filter(continent != "Asia") %>% #Remoive all countries from Asia
+summarize(AvgPOP=mean(pop)) %>% #Calculate the average population for each country (possible because of the group_by)
+ungroup() %>% #Ungroup so we can view the piecies of data independently
+select(continent,year,AvgPOP) %>% #Select the values we wish to observe
+arrange(desc(AvgPOP)) #Arrange everything in descending order
 ```
 
 8. Which three countries have had the most consistent population estimates (i.e. lowest standard deviation) across the years of available data? 
@@ -90,9 +92,10 @@ arrange(desc(AvgPOP))
 ```{R}
 gapminder %>%
 group_by(country) %>%
-summarize(SD_POP=sd(pop)) %>%
-arrange(SD_POP) %>%
-top_n(3)
+#Same as usual to here
+summarize(SD_POP=sd(pop)) %>% #Create a value for standard population of a country using "sd()"
+arrange(SD_POP) %>% #Sort lowest to highest
+top_n(3) #View the top 3, or the 3 lowest standard deviations
 ```
 
 9. Subset **gm** to only include observations from 1992 and store the results as **gm1992**. What kind of object is this?
@@ -101,7 +104,7 @@ top_n(3)
 gapminder1992 <- gapminder %>%
 filter(year == 1992)
 
-class(gapminder1992)
+class(gapminder1992) # Why reason this out when R can tell us!   class of the variable we have definded answers this question for us (It's still a data frame, just a subset of what we had before)
 ```
 
 
@@ -112,7 +115,8 @@ class(gapminder1992)
 gapminder %>%
 arrange(country,year) %>%
 group_by(country) %>%
-filter(pop < lag(pop))  %>%
-filter(lifeExp > lag(lifeExp))  %>%
-arrange(country,year) 
+#Arranging by country and year before the group by will properly create a data set such that it's sorted by country, then year, and we can also perform additional maniputaion just by country
+filter(pop < lag(pop))  %>% #Filters out any countries whose population has not decreased from year to year
+filter(lifeExp > lag(lifeExp))  %>% #Filters out any countries whose life expectancy has not increased from year to year
+arrange(country,year) #Sort all we did above by country, and then year
 ```
