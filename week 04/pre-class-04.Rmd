@@ -15,7 +15,7 @@ library(dplyr)
 Using a loop, print the integers from 1 to 50. 
 ```{r}
 
-for(i in 1:50){
+for(i in 1:50){ #using i itself as the value to print
   print(i)
 }
 
@@ -25,11 +25,11 @@ for(i in 1:50){
 
 A.  Using a loop, add all the integers between 0 and 1000.
 ```{r}
-sum <- 0
+sum <- 0 #Set sum = 0 to start
 for(i in 1:1000){
-  sum <- sum+i
+  sum <- sum+i #Add sum to to i as we let i go from one to one thousand
 }
-sum
+sum #Print for confirmation
 ```
 
 
@@ -37,21 +37,24 @@ sum
 
 B. Now, add all the EVEN integers between 0 and 1000 (hint: use seq())
 ```{r}
-sum2 <- 0
-for(i in seq(from =0, to = 1000, by = 2)){
+sum2 <- 0 #Set sum2 = 0 to start
+for(i in seq(from =0, to = 1000, by = 2)){#This will go 0, 2, 4, 6... to 1000.
   sum2 <- sum2+i
 }
-sum2
+sum2 #Print for confirmation
 ```
 C. Now, repeat A and B WITHOUT using a loop.
 ```{r}
+#Set sum2,sum3 = 0 to start
 sum3 <- 0
 sum4 <- 0
 
-sum3 <- sum3+seq(from =0, to = 1000, by = 1)
+sum3 <- sum3+seq(from =0, to = 1000, by = 1)#This will go 0, 1, 2, 3... to 1000.
+#sum3 is now a list of the numbers we want to sum so...
 sum(sum3)
 
-sum4 <- sum4+seq(from =0, to = 1000, by = 2)
+sum4 <- sum4+seq(from =0, to = 1000, by = 2)#This will go 0, 2, 4, 6... to 1000.
+#sum4 is now a list of the numbers we want to sum so...
 sum(sum4)
 ```
 
@@ -60,7 +63,7 @@ sum(sum4)
 Here is a dataframe of survey data containing 5 questions :
 
 ```{r, eval=FALSE}
-survey <- data.frame(
+survey <- data.frame( #All of this code is given
                      "participant" = c(1, 2, 3, 4, 5, 6),
                      "q1" = c(5, 3, 2, 7, 11, 0),
                      "q2" = c(4, 2, 2, 5, -10, 99),
@@ -72,38 +75,39 @@ survey <- data.frame(
 The response to each question should be an integer between 1 and 5. Obviously, we have some bad values in the dataframe. The goal of this problem is to fix them.
 
 A. Using a loop, create a new dataframe called survey.clean where all the invalid values (those that are not integers between 1 and 5) are set to NA.
-```{r, eval=FALSE}
-survey.clean<- survey
+```{r}
+survey.clean<- survey #Define our new data frame to edit
 
-  for (i in 1:6){
-  for (j in 2:6){
-   # print(survey.clean[i,j])
-    if(survey.clean[i,j] < 1 | survey.clean[i,j] > 5){
-      survey.clean[i,j]=NA
-      #print(survey.clean[i,j])
+  for (i in 1:6){ 
+  for (j in 2:6){ # Loop through the columns and rows skipping participant #6
+    
+    if(survey.clean[i,j] < 1 | survey.clean[i,j] > 5){ #Loop through each element using i and j themselves
+      survey.clean[i,j]=NA #Set the searched for values to NA
+      
     }
-}}
+  }}
+
+survey.clean #print to check
 ```
 B. Now, again using a loop, add a new column to the dataframe called “invalid.answers” that indicates, for each participant, how many bad answers they gave.
 ```{r}
-#survey.clean %>%
-#mutate("invalid.answers"=0)
-NASUM <- 0
+
+#We're using survey.clean here so rerun the code for part A eachtime this is run or it'll overwrite your data
+
+NASUM <- 0 #We'll use this to keep track of the bad answers for each row
 
   for (i in 1:6){
-  for (j in 1:6){
+  for (j in 1:6){ # Loop through the columns and rows 
     
-    if(is.na(survey.clean[i,j])){
-      NASUM <- NASUM +1
+    if(is.na(survey.clean[i,j])){ # So for each NA we find...
+      NASUM <- NASUM +1 #We add 1 to NASUM for this row then...
     }
   }
-   survey.clean[i,7] = NASUM 
-   #print(NASUM)
-   #print(survey.clean[i,7])
-   NASUM <- 0
+   survey.clean[i,7] = NASUM #We set our new row equal to NASUM
+   NASUM <- 0 #We reset NASUM to 0 so we can go through another row
   }
 
-names(survey.clean)[7]<-"invalid.answers"
+names(survey.clean)[7]<-"invalid.answers" #We need to name this row as specified in the question prompt
 
-survey.clean
+survey.clean #print to check
 ```
