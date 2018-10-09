@@ -142,5 +142,36 @@ for(i in 1:16){
 ### Question 2: Looping to Calculate
 
 A. Using a loop, calculate the mean weight of the subjects separated by the type of CHD they have.
+
+```{r}
+#I'm going to define two empty vectors, and as I loop through wcgs fill the "yes" vector with the weights where chd69 is yes and fill the "no" vector with the weights where chd69 is no
+
+noVector<-c() 
+noCount<-0 #Counter is needed to keep track of the elements in the vecttor
+
+yesVector<-c()
+yesCount<-0 #Counter is needed to keep track of the elements in the vecttor
+
+for(i in 1:nrow(wcgs)){
+if(wcgs$chd69[i]=="no"){
+  noVector[noCount] <- wcgs$weight[i] #Add the ith element of wcgs$weight to noVector as the 'noCount'th element
+  noCount<-noCount+1 #add one to our count variable so we don't overwrite our values
+}else if (wcgs$chd69[i]=="yes"){
+  yesVector[yesCount] <- wcgs$weight[i] #Add the ith element of wcgs$weight to yesVector as the 'yesCount'th element
+  yesCount<-yesCount+1 #add one to our count variable so we don't overwrite our values
+}
+}
+
+meantable<-c(mean(noVector),mean(yesVector))
+names(meantable)<-c("Mean of Yes","Mean of No")
+meantable
+```
 B. Now do the same thing, but now don’t use a loop
+```{r}
+#library(dplyr)
+
+wcgs %>%
+  group_by(chd69) %>% #Groups our yes and no variables together and then...
+  summarise(mean(weight))#We take their mean!
+```
 
