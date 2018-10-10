@@ -162,16 +162,56 @@ if(wcgs$chd69[i]=="no"){
 }
 }
 
-meantable<-c(mean(noVector),mean(yesVector))
+meantable<-c(mean(noVector,na.rm=TRUE),mean(yesVector,na.rm=TRUE))
 names(meantable)<-c("Mean of Yes","Mean of No")
 meantable
 ```
+
+```{r}
+#It was brought to my attention at Wed 11AM that I used the wrong variable, attempting to fix
+
+noVector<-c() #npCH
+noCount<-0 #Counter is needed to keep track of the elements in the vecttor
+
+yesVector<-c()
+yesCount<-0 #Counter is needed to keep track of the elements in the vecttor
+
+silentVector<-c()
+silentCount<-0 #Counter is needed to keep track of the elements in the vecttor
+
+anginaVector<-c()
+anginaCount<-0 #Counter is needed to keep track of the elements in the vecttor
+
+for(i in 1:nrow(wcgs)){
+if(wcgs$typchd69[i]=="no CHD"){
+  noVector[noCount] <- wcgs$weight[i] #Add the ith element of wcgs$weight to noVector as the 'noCount'th element
+  noCount<-noCount+1 #add one to our count variable so we don't overwrite our values
+}else if (wcgs$typchd69[i]=="MI or SD"){
+  yesVector[yesCount] <- wcgs$weight[i] #Add the ith element of wcgs$weight to yesVector as the 'yesCount'th element
+  yesCount<-yesCount+1 #add one to our count variable so we don't overwrite our values
+}else if (wcgs$typchd69[i]=="silent MI"){
+  silentVector[silentCount] <- wcgs$weight[i] 
+  silentCount<-silentCount+1 #add one to our count variable so we don't overwrite our values
+}else if (wcgs$typchd69[i]=="angina"){
+  anginaVector[anginaCount] <- wcgs$weight[i] 
+  anginaCount<-anginaCount+1 #add one to our count variable so we don't overwrite our values
+}
+}
+
+#meantable<-c(mean(noVector,na.rm=TRUE),mean(yesVector,na.rm=TRUE),mean(silentVector,na.rm=TRUE),mean(angiaVector,na.rm=TRUE))
+#names(meantable)<-c("Mean of no CHD","Mean of MI or SD","silent MI","angia")
+#meantable
+mean(noVector)
+mean(yesVector)
+mean(silentVector)
+mean(anginaVector)
+```
 B. Now do the same thing, but now don’t use a loop
 ```{r}
-#library(dplyr)
+library(dplyr)
 
 wcgs %>%
-  group_by(chd69) %>% #Groups our yes and no variables together and then...
-  summarise(mean(weight))#We take their mean!
+  group_by(typchd69) %>% #Groups our yes and no variables together and then... #Fixed, was originally chd69
+  summarise(mean(weight,na.rm=TRUE))#We take their mean!
 ```
 
