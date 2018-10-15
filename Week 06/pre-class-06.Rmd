@@ -1,0 +1,85 @@
+# pre-class
+
+
+Make sure you commit this often with meaningful messages. 
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+1. Read the source code for each of the following three functions, puzzle out what they do, and then brainstorm better names.
+
+```{r}
+ConfirmPrefix <- function(string, prefix) { #This function returns true or falae depending upon if the second of two strings you send it is exactly the begining of the first string sent
+  substr(string, 1, nchar(prefix)) == prefix
+}
+
+RemoveLast <- function(x) {#reduces the length of a list by 1 by removing the last element, I would call x vector or list to be more clear
+  if (length(x) <= 1) return(NULL)
+  x[-length(x)]
+}
+
+#code for testing
+Test1<-c(1,2,3,4,5,6,7,8,9,10)
+Test2<-c(1,2,3)
+
+MatchLength <- function(x, y) { #Takes a vector y, and makes a new vector that is the length of the given vector y, repeating the elements of the vector y if the length of y is less then the length of x.
+  rep(y, length.out = length(x))
+}
+```
+
+2. Compare and contrast rnorm() and MASS::mvrnorm(). How could you make them more consistent?
+
+```{r}
+#Test code
+Normal <- rnorm(12,0,4)
+#This sets the value of n, mean and standard deviation respectively
+Normal2 <-MASS::mvrnorm(12,0,2)
+
+
+#MASS::mvrnorm(Normal) This does not work
+Normal==Normal2
+```
+
+So first allow me to list the usage for both from Rdocumentation.  For MASS::mvrnorm it is:
+
+mvrnorm(n = 1, mu, Sigma, tol = 1e-6, empirical = FALSE, EISPACK = FALSE)
+
+for rnorm it is (it it's most basic form):
+
+rnorm(n, mean = 0, sd = 1)
+
+The diffrences should be clear.  In mvrnorm n has a default value and the 2nd and third elements are defined as mu and Sigma. In rnorm n has no default value and mu(defined as mean), and Sigma (defined as sd) do.  However they both do essentially the same thing, simulate a normal distribution.  We could alter them to all have the default values and the same variable names, however mvnorm is specifically for the multivariate case (which is why it has Sigma).  FOr this reason we don't really want itto have a default value, or we ruin the point to there being two in the first place.
+
+
+
+
+3. Use `lapply()` and an anonymous function to find the coefficient of variation (the standard deviation divided by the mean) for all columns in the mtcars dataset. 
+
+```{r}
+
+lapply(mtcars, function(x) sd(x) / mean(x)) #Simple use of lapply with a anon function that calculates the coefficent of variation
+
+```
+
+
+4. Use vapply() to:
+    a. Compute the standard deviation of every column in a numeric data frame.
+    
+```{r}
+vapply(mtcars, function(x) sd(x),numeric(1)) #Find the sd of each column of cars and return the output as numeric
+```
+    
+    
+    b. Compute the standard deviation of every numeric column in a mixed data frame. (Hint: you’ll need to use vapply() twice.)
+```{r}
+#Make a test data frome
+df <- data.frame(a = sample(1:3, 5, replace = TRUE), b = LETTERS[1:5], c = sample(1:3, 5, replace = TRUE))
+
+df.numeric <- vapply(df, function(x) is.numeric(x),logical(1)) #-> This code checks for columns with numeric data
+
+vapply(df[df.numeric], function(x) sd(x),numeric(1))#Apply the same as in a but restricting to our above logical list
+```
