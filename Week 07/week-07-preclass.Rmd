@@ -21,6 +21,12 @@ output:
 options(scipen = 3, digits = 3)
 ```
 
+```{r,eval=FALSE}
+
+library(stats)
+library(stats4)
+
+```
 
 
 
@@ -35,10 +41,179 @@ With this project we will simulate a famoues probability problem. This will not 
     c. the mean time you go bust, given that you go bust within the first 5000 hands.
     d. the mean and variance of your bankroll after 100 hands (including busts).
     e. the mean and variance of your bankroll after 500 hands (including busts).
+
+```{r}
+
+GameSimulation <- function(N,bet,total){
+  
+  for(i in 1:N){
+    game<-rbinom(1,1,.5)
+    if(game==1){
+      total= total+bet
+    }else if(game==0){
+      total= total-bet
+    }
+    
+    if(total<bet){
+      return(1)
+      break
+    }
+    
+  }
+  return(0)
+}
+
+GameSimulationTotal <- function(N,bet,total){
+  
+  for(i in 1:N){
+    game<-rbinom(1,1,.5)
+    if(game==1){
+      total= total+bet
+    }else if(game==0){
+      total= total-bet
+    }
+    
+    if(total<bet){
+      return(i)
+      break
+    }
+    
+  }
+  return(NA)
+}
+
+GameSimulationBankroll <- function(N,bet,total){
+  
+  for(i in 1:N){
+    game<-rbinom(1,1,.5)
+    if(game==1){
+      total= total+bet
+    }else if(game==0){
+      total= total-bet
+    }
+    
+    if(total<bet){
+      return(total)
+      break
+    }
+    
+  }
+  return(total)
+}
+
+#For our simulations 1 is a loss and 0 is a win! 
+
+#Test for 100
+Test.100<- replicate(5000, GameSimulation(100,100,1000))
+sum(Test.100/5000)
+
+#Test for 500
+Test.500<- replicate(5000, GameSimulation(500,100,1000))
+sum(Test.500/5000)
+
+#Calculate mean
+
+Test.Mean.5000<- replicate(5000, GameSimulationTotal(5000,100,1000))
+mean(Test.Mean.5000, na.rm = TRUE)
+
+#the mean and variance of your bankroll after 100 hands
+
+Test.Bankroll.100<- replicate(5000, GameSimulationTotal(100,100,1000))
+mean(Test.Bankroll.100, na.rm = TRUE)
+var(Test.Bankroll.100, na.rm = TRUE)
+
+#the mean and variance of your bankroll after 100 hands
+
+Test.Bankroll.500<- replicate(5000, GameSimulationTotal(500,100,1000))
+mean(Test.Bankroll.500, na.rm = TRUE)
+var(Test.Bankroll.500, na.rm = TRUE)
+```
+ 
+ 
+ 
  
 Note: you *must* stop playing if your player has gone bust. How will you handle this in the `for` loop?
 
 2. **Markov Chains**. Suppose you have a game where the probability of winning on your first hand is 48%; each time you win, that probability goes up by one percentage point for the next game (to a maximum of 100%, where it must stay), and each time you lose, it goes back down to 48%. Assume you cannot go bust and that the size of your wager is a constant $100.
     a. Is this a fair game? Simulate one hundred thousand sequential hands to determine the size of your return. Then repeat this simulation 99 more times to get a range of values to calculate the expectation.
+    
+```{r}
+game.Sim<- function(N){
+Total=0
+  
+game.hand <- rep(NA,N)
+Probability<-.48
+
+for (i in 1:N){
+  hand<-rbinom(1,1,Probability)
+  if(hand==1){#This is a win
+    Total=Total+100
+    Probability=Probability+.01
+      if(Probability>1){
+        Probability=1
+      }
+  }else{
+    Total=Total-100
+    Probability=.48
+  }
+}
+
+return(Total)
+
+}
+
+mean(replicate(100,game.Sim(100000)))
+```
+    
+    
     b. Repeat this process but change the starting probability to a new value within 2% either way. Get the expected return after 100 repetitions. Keep exploring until you have a return value that is as fair as you can make it. Can you do this automatically?
+    ```{r}
+game.Sim<- function(N,p){
+Total=0
+  
+game.hand <- rep(NA,N)
+Probability<-p
+
+for (i in 1:N){
+  hand<-rbinom(1,1,Probability)
+  if(hand==1){#This is a win
+    Total=Total+100
+    Probability=Probability+.01
+      if(Probability>1){
+        Probability=1
+      }
+  }else{
+    Total=Total-100
+    Probability=p
+  }
+}
+
+return(Total)
+
+}
+
+p <-.48
+Final<- -1000000000000000000000 #Arbitrialiary large Starting Value
+
+while(1){
+Final<-mean(replicate(100,game.Sim(100000,p)))
+
+if(Final<0)
+{
+  p<-p+.001
+}else if (Final>0){
+  p<-p-.001
+}
+if(abs(FinalPrevious)<abs(Final)){
+  return(FinalPrevious)
+}
+
+FinalPrevious <- Final
+
+}
+
+print(p)
+Print(Final)
+
+```
     c. Repeat again, keeping the initial probability at 48%, but this time change the probability increment to a value different from 1%. Get the expected return after 100 repetitions. Keep changing this value until you have a return value that is as fair as you can make it. 
