@@ -3,7 +3,7 @@ title: "Simulations Pre-Class Project"
 date: "Due March 13, 2017 at 5:00pm"
 output:
   html_document
-
+#Frank DeVone
 
 ---
 
