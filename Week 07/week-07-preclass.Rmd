@@ -196,7 +196,7 @@ p <-.48
 Final<- -1000000000000000000000 #Arbitrialiary large Starting Value
 
 while(1){
-Final<-mean(replicate(100,game.Sim(100000,p)))
+Final<-mean(replicate(100,game.Sim(100,p)))
 
 if(Final<0)
 {
@@ -204,16 +204,20 @@ if(Final<0)
 }else if (Final>0){
   p<-p-.001
 }
+
+FinalPrevious <- Final
+
 if(abs(FinalPrevious)<abs(Final)){
+  print(FinalPrevious)
   return(FinalPrevious)
 }
 
-FinalPrevious <- Final
+
 
 }
 
 print(p)
-Print(Final)
+
 
 ```
     c. Repeat again, keeping the initial probability at 48%, but this time change the probability increment to a value different from 1%. Get the expected return after 100 repetitions. Keep changing this value until you have a return value that is as fair as you can make it. 
