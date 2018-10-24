@@ -163,6 +163,7 @@ return(Total)
 }
 
 mean(replicate(100,game.Sim(100000)))
+#Not very fair, our simulations are always very negative
 ```
     
     
@@ -192,32 +193,104 @@ return(Total)
 
 }
 
-p <-.48
-Final<- -1000000000000000000000 #Arbitrialiary large Starting Value
+#We start p at .485 since we know that .48 is unfair and .50 is unfair (but in the boon of the player) 
+p <-.485 
+pmax<-.50
+pmin<-.46
+FinalPrevious<-  1000000000000000000000 #Arbitrialiary large Starting Value
 
 while(1){
-Final<-mean(replicate(100,game.Sim(100,p)))
+Final<-mean(replicate(100,game.Sim(10000,p)))#Simulation # reduced to allow program to run
+
+print(paste("Current p is ",p,"while amount lost/gained is ",Final ))
 
 if(Final<0)
 {
-  p<-p+.001
+  pmin<-p
+  p<-p+(pmax-p)/2 #Increment by 1/2 of the difference if too large
 }else if (Final>0){
-  p<-p-.001
+  pmax<-p
+  p<-p-(p-pmin)/2 #Increment by 1/2 of the difference if too small
+}
+
+
+
+
+if(abs(FinalPrevious)<abs(Final) & abs(FinalPrevious)<100){ #This looks for the tipping point in our chain where our increment made things worse instead of better, we also want to give some portion of what we consider "small enough" here we use 1
+  print(paste("Final P is ",p," while the amount loss/gained is ",FinalPrevious))
+  break
 }
 
 FinalPrevious <- Final
 
-if(abs(FinalPrevious)<abs(Final)){
-  print(FinalPrevious)
-  return(FinalPrevious)
 }
-
-
-
-}
-
-print(p)
 
 
 ```
     c. Repeat again, keeping the initial probability at 48%, but this time change the probability increment to a value different from 1%. Get the expected return after 100 repetitions. Keep changing this value until you have a return value that is as fair as you can make it. 
+
+    ```{r}
+game.Sim<- function(N,p,increment){
+Total=0
+  
+game.hand <- rep(NA,N)
+Probability<-p
+
+for (i in 1:N){
+  hand<-rbinom(1,1,Probability)
+  if(hand==1){#This is a win
+    Total=Total+100
+    Probability=Probability+increment
+      if(Probability>1){
+        Probability=1
+      }
+  }else{
+    Total=Total-100
+    Probability=p
+  }
+}
+
+return(Total)
+
+}
+    
+    
+    
+
+p <-.48
+increment<-.01
+incrementmin<-0
+incrementmax<-1
+
+FinalPrevious<-  1000000000000000000000 #Arbitrialiary large Starting Value
+
+while(1){
+Final<-mean(replicate(100,game.Sim(10000,p,increment)))#Simulation # reduced to allow program to run
+
+print(paste("Current increment is ",increment,"while amount lost/gained is ",Final ))
+
+if(Final<0)
+{
+  incrementmin<-increment
+  increment<-increment+(incrementmax-increment)/2 #Increment by 1/2 of the difference if too large
+}else if (Final>0){
+  incrementmax<-increment
+  increment<-increment-(increment-incrementmin)/2 #Increment by 1/2 of the difference if too small
+}
+
+
+
+
+if(abs(FinalPrevious)<abs(Final) & abs(FinalPrevious)<1000){ #This looks for the tipping point in our chain where our increment made things worse instead of better, we also want to give some portion of what we consider "small enough" here we use 1000.  This is changed from before because the increment affects our valus less then p did
+  print(paste("Final Increment is ",increment," while the amount loss/gained is ",FinalPrevious))
+  break
+}
+
+FinalPrevious <- Final
+
+}
+
+
+```
+
+
