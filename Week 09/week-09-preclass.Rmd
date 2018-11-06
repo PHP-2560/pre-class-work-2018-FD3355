@@ -1,0 +1,116 @@
+---
+title: "Basic Webscraping"
+---
+
+<style type="text/css">
+.table {
+
+    width: 80%;
+    margin-left:10%; 
+    margin-right:10%;
+}
+</style>
+```{r,setup, echo=FALSE, cache=TRUE}
+## numbers >= 10^5 will be denoted in scientific notation,
+## and rounded to 2 digits
+options(scipen = 3, digits = 3)
+```
+
+
+
+## Exercises
+
+1. Read the HTML content of the following URL with a variable called webpage: https://money.cnn.com/data/us_markets/ At this point, it will also be useful to open this web page in your browser.
+
+```{r}
+#install.packages("httr")
+#install.packages("XML")
+#install.packages("RCurl")
+#install.packages("curl")
+#install.packages("rvest")
+#library(httr)
+#library(XML)
+#library(RCurl)
+#library("curl")
+#library("rvest")
+
+URL <- "https://money.cnn.com/data/us_markets/"
+
+webpage.seed<- getURL(URL)
+webpage<- readHTMLTable(webpage.seed)
+webpage.HTML<- read_html(webpage.seed)
+```
+
+
+2. Get the session details (status, type, size) of the above mentioned URL.
+
+```{r}
+html_session(URL)
+```
+
+
+3. Extract all of the sector names from the “Stock Sectors” table (bottom left of the web page.)
+
+```{r}
+webpage.stock<- readHTMLTable(webpage.seed,stringsASFactors=FALSE,which=2)
+webpage.stock[,1]
+```
+
+
+4. Extract all of the “3 Month % Change” values from the “Stock Sectors” table.
+
+```{r}
+webpage.stock.3 <- webpage.stock[,2]
+webpage.stock.3
+```
+
+
+5. Extract the table “What’s Moving” (top middle of the web page) into a data-frame.
+
+```{r}
+webpage.moving<- readHTMLTable(webpage.seed, stringsAsFactors = FALSE, which=1)
+```
+
+6. Re-construct all of the links from the first column of the “What’s Moving” table.
+Hint: the base URL is “https://money.cnn.com”
+
+```{r}
+
+#Can't get this working
+
+names<-c("EQT","L","NWL","BRKB","HP","SYY","ATVI","QRVO","AKAM","MSI")
+class(webpage.moving[1,1])
+
+#for(i in 1:10){
+ #webpage.moving[1,i]=paste("https://money.cnn.com/quote/quote.html?symb="+names[i])
+#}
+```
+
+7. Extract the titles under the “Latest News” section (bottom middle of the web page.)
+
+```{r}
+webpage.titles<- readHTMLList(webpage.seed, stringsAsFactors = FALSE, which=18)
+webpage.titles
+```
+
+**I really don't know on the below, need to ask**
+
+8. To understand the structure of the data in a web page, it is often useful to know what the underlying attributes are of the text you see
+
+Extract the attributes (and their values) of the HTML element that holds the timestamp underneath the “What’s Moving” table.
+
+```{r}
+#Not sure about this one
+xml_find_all(webpage.HTML, "timestamp")
+
+
+webpage.timestamp<- html_nodes(webpage.HTML,"HTML")
+
+webpage.timestamp
+
+
+```
+
+9. Extract the values of the blue percentage-bars from the “Trending Tickers” table (bottom right of the web page.)
+Hint: in this case, the values are stored under the “class” attribute.
+10. Get the links of all of the “svg” images on the web page.
